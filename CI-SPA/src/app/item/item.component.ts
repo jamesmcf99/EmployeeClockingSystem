@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ItemComponent implements OnInit {
 
-  values: any;  
+  items: any;  
 
   constructor(private http: HttpClient) { }
 
@@ -18,9 +18,9 @@ export class ItemComponent implements OnInit {
   }
   getItems()
   {
-    return this.http.get("http://localhost:500/api/items").subscribe
+    return this.http.get("http://localhost:5000/api/items").subscribe
     (response => {console.log(response);
-     this.values = response;}, 
+     this.items = response;}, 
      error => {console.log(error);}
     );
     
