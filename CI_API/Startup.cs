@@ -6,12 +6,14 @@ using CI_DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 
 namespace CI_API
 {
@@ -27,6 +29,19 @@ namespace CI_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityBuilder builder = services.AddIdentityCore<CI_DAL.Entities.User>(opt => {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength= 1;
+                opt.Password.RequiredUniqueChars = 0;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                
+            });
+            builder.AddEntityFrameworkStores<ApplicationDbContext>();
+           
+           //
+
             services.AddCors(options =>
         {
             options.AddPolicy(MyAllowSpecificOrigins,
@@ -37,6 +52,9 @@ namespace CI_API
                 builder.AllowAnyMethod();
             });
         });
+
+        //
+        
             services.AddControllers();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("Default")));

@@ -25,19 +25,19 @@ namespace CI_API.Controllers
 
         //http://localhost:500/api/values
         [HttpGet]
-        public async Task<IActionResult> GetValues()
+        public async Task<IActionResult> GetItems()
         {
-          var values = await _context.Items.ToListAsync();  
-          return Ok(values);
+          var items = await _context.Items.ToListAsync();  
+          return Ok(items);
         }
 
 
          [HttpGet("{id}")]
-        public async Task<IActionResult> GetValue(int id)
+        public async Task<IActionResult> GetItem(int id)
         {
-          var value = await _context.Items.FirstOrDefaultAsync(v => v.Id == id);
+          var item = await _context.Items.FirstOrDefaultAsync(v => v.Id == id);
           
-          return Ok(value);
+          return Ok(item);
         }
     }
 }
