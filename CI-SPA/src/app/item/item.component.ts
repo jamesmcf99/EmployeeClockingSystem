@@ -14,7 +14,7 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
 
-   this.getItems(); 
+   this.getItems();   
   }
   getItems()
   {
